@@ -1,0 +1,291 @@
+{
+"formats": [
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+}
+],
+"formatname": "DEFAULT",
+"outputlines": [
+"{*Name*}"
+],
+"titleline": "{*Name*}"
+},
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+},
+{
+"fieldname": "Title",
+"fieldtype": "Text"
+},
+{
+"fieldname": "Security",
+"fieldtype": "Text"
+},
+{
+"fieldname": "Date",
+"fieldtype": "Text"
+},
+{
+"fieldname": "Author",
+"fieldtype": "Text"
+},
+{
+"fieldname": "Abstract",
+"fieldtype": "Text"
+},
+{
+"fieldname": "Version",
+"fieldtype": "Text"
+}
+],
+"formatname": "book",
+"outputlines": [
+"\\def\\doctitle{{*Title*}}",
+"\\def\\docsecurity{{*Security*}}",
+"\\def\\docdate{{*Date*}}",
+"\\def\\docver{{*Version*}}",
+"\\def\\docauthor{{*Author*}}",
+"",
+"\\input{./template/front}",
+"",
+"%%---------------------------------------------------------------------",
+"\\begin{document}",
+"",
+"\\input{./template/zte_title}",
+"%%---------------------------------------------------------------------",
+"%%-----------\u79d8\u5bc6\u25b2----------------------------------------------------------",
+"% \\titlepage",
+"\\title{\\vspace{-2em}\u6280\u672f\u6587\u4ef6\uff1a\\doctitle\\vspace{-0.7em}}",
+"\\author{\\docauthor}",
+"\\date{\\vspace{-0.7em}\\docdate\\vspace{-0.7em}}",
+"",
+"%%---------------------------------------------------------------------",
+"%\\maketitle\\thispagestyle{fancy}",
+"%%---------------------------------------------------------------------",
+"\\maketitle",
+"\\tableofcontents",
+"",
+"\\begin{abstract}",
+"{*Abstract}",
+"\\end{abstract}",
+"",
+"{*@DescendantOutput*}",
+"",
+"% references",
+"\\bibliographystyle{plain}",
+"",
+"\\bibliography{{*Name*}} %\u53c2\u8003\u6587\u732e",
+"",
+"%%---------------------------------------------------------------------",
+"\\end{document}"
+],
+"titleline": "{*Name*}"
+},
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+}
+],
+"formatname": "enumerate",
+"outputlines": [
+"{*Name*}",
+"\\begin{enumerate}",
+"{*@DescendantOutput*}",
+"\\end{enumerate}"
+],
+"titleline": "{*Name*}"
+},
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+}
+],
+"formatname": "item",
+"outputlines": [
+"\\item {*Name*}"
+],
+"titleline": "{*Name*}"
+},
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+},
+{
+"fieldname": "Head",
+"fieldtype": "Text"
+}
+],
+"formatname": "item_ex",
+"outputlines": [
+"\\item[{*Head*}] {*Name*}"
+],
+"titleline": "{*Name*}"
+},
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+}
+],
+"formatname": "itemize",
+"outputlines": [
+"{*Name*}",
+"\\begin{itemize}",
+"{*@DescendantOutput*}",
+"\\end{itemize}"
+],
+"titleline": "{*Name*}"
+},
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+}
+],
+"formatname": "section",
+"outputlines": [
+"\\section{{*Name*}}"
+],
+"titleline": "{*Name*}"
+},
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+}
+],
+"formatname": "subsection",
+"outputlines": [
+"\\subsection{{*Name*}}"
+],
+"titleline": "{*Name*}"
+},
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+}
+],
+"formatname": "subsubsection",
+"outputlines": [
+"\\subsubsection{{*Name*}}"
+],
+"titleline": "{*Name*}"
+}
+],
+"nodes": [
+{
+"children": [],
+"data": {
+"Head": "1",
+"Name": "one"
+},
+"format": "item_ex",
+"uid": "0129e23e614711ecaa0b00163e0077cb"
+},
+{
+"children": [],
+"data": {
+"Head": "2",
+"Name": "two"
+},
+"format": "item_ex",
+"uid": "06395f70614711ecaa0b00163e0077cb"
+},
+{
+"children": [],
+"data": {
+"Head": "3",
+"Name": "three"
+},
+"format": "item_ex",
+"uid": "068f93cc614711ecaa0b00163e0077cb"
+},
+{
+"children": [],
+"data": {
+"Name": "\u7ed3\u8bba"
+},
+"format": "section",
+"uid": "0aa2ec48614711ecaa0b00163e0077cb"
+},
+{
+"children": [
+"d879af7c614611ecaa0b00163e0077cb",
+"e865d4f6614611ecaa0b00163e0077cb",
+"ecccdbd4614611ecaa0b00163e0077cb",
+"0aa2ec48614711ecaa0b00163e0077cb"
+],
+"data": {
+"Abstract": "\tKafka\u662f\u4e00\u4e2a\u4f7f\u7528Scala\u548cJava\u8bed\u8a00\u7f16\u5199\u7684\u5f00\u6e90\u7684\u6d41\u5f0f\u6570\u636e\u5904\u7406\u5e73\u53f0\uff0c\u80fd\u591f\u4f5c\u4e3a\u5904\u7406\u5b9e\u65f6\u6570\u636e\u7684\u7edf\u4e00\u7684\u3001\u9ad8\u541e\u5410\u3001\u4f4e\u5ef6\u8fdf\u7684\u4e2d\u95f4\u4ef6\u3002\u672c\u6587\u6863\u5bf9Kafka\u7684\u5178\u578b\u5e94\u7528\u573a\u666f\u8fdb\u884c\u4e86\u6574\u7406\uff0c\u63d0\u51fa\u4e86\u5404\u79cd\u573a\u666f\u4e0bKafka\u7684\u7edf\u4e00\u4f7f\u7528\u65b9\u6848\uff0c\u5e76\u4e0e\u5176\u5b83\u7684\u540c\u7c7b\u578b\u89e3\u51b3\u65b9\u6848\u8fdb\u884c\u4e86\u6bd4\u8f83\u3002",
+"Author": "\u674e\u661510296833",
+"Date": "\u4e8c\u3007\u4e8c\u4e00\u5e74\u5341\u4e8c\u6708",
+"Name": "kafka",
+"Security": "\u79d8\u5bc6",
+"Title": "Kafka\u7edf\u4e00\u6d41\u5f0f\u4e2d\u95f4\u4ef6\u89e3\u51b3\u65b9\u6848"
+},
+"format": "book",
+"uid": "503105c8614311ecaa0b00163e0077cb"
+},
+{
+"children": [],
+"data": {
+"Name": "\u7b80\u4ecb"
+},
+"format": "section",
+"uid": "d879af7c614611ecaa0b00163e0077cb"
+},
+{
+"children": [],
+"data": {
+"Name": "\u7efc\u8ff0"
+},
+"format": "section",
+"uid": "e865d4f6614611ecaa0b00163e0077cb"
+},
+{
+"children": [
+"f747d5be614611ecaa0b00163e0077cb"
+],
+"data": {
+"Name": "\u65b9\u6848"
+},
+"format": "section",
+"uid": "ecccdbd4614611ecaa0b00163e0077cb"
+},
+{
+"children": [
+"0129e23e614711ecaa0b00163e0077cb",
+"06395f70614711ecaa0b00163e0077cb",
+"068f93cc614711ecaa0b00163e0077cb"
+],
+"data": {
+"Name": "\u5217\u8868"
+},
+"format": "itemize",
+"uid": "f747d5be614611ecaa0b00163e0077cb"
+}
+],
+"properties": {
+"tlversion": "3.1.4+",
+"topnodes": [
+"503105c8614311ecaa0b00163e0077cb"
+]
+}
+}

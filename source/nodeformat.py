@@ -210,6 +210,51 @@ class NodeFormat:
                     result[-1] += endTagMatch.group(1)
         return result
 
+    def formatOutputEx(self, node, plainText=False, keepBlanks=False,
+                     spotRef=None):
+        """Return a list of formatted text output lines with DSO extention.
+
+        Arguments:
+            node -- the node used to get data for fields
+            plainText -- if True, remove HTML markup from fields and formats
+            keepBlanks -- if True, keep lines with empty fields
+            spotRef -- optional, used for ancestor field refs
+        """
+        result = self.formatOutput(node, plainText, keepBlanks, spotRef)
+
+        mark = "{*@DescendantOutput*}"
+
+        mark_str_index = -1
+        mark_line = ''
+        mark_line_index = -1
+
+        for line in result:
+            mark_line_index = result.index(line)
+
+            mark_str_index = line.find(mark)
+            if mark_str_index >= 0:
+                mark_line=line
+                break
+
+        if mark_str_index >= 0:
+            alltext=[]
+            alltext.extend(result[:mark_line_index])
+            alltext.append(mark_line[:mark_str_index])
+
+            for child in node.childList:
+                alltext.extend(child.formatRef.formatOutputEx(child, plainText, keepBlanks, spotRef))
+
+            alltext.append(mark_line[mark_str_index+len(mark):])
+            alltext.extend(result[mark_line_index+1:])
+            return alltext
+
+        else:
+            for child in node.childList:
+                result.extend(child.formatRef.formatOutputEx(child, plainText, keepBlanks, spotRef))
+
+            return result
+
+
     def addField(self, name, fieldData=None):
         """Add a field type with its format to the field list.
 

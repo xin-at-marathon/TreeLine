@@ -1,0 +1,219 @@
+{
+"formats": [
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+}
+],
+"formatname": "DEFAULT",
+"outputlines": [
+"{*Name*}"
+],
+"titleline": "{*Name*}"
+},
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+},
+{
+"fieldname": "Title",
+"fieldtype": "Text"
+},
+{
+"fieldname": "Security",
+"fieldtype": "Text"
+},
+{
+"fieldname": "Date",
+"fieldtype": "Text"
+},
+{
+"fieldname": "Author",
+"fieldtype": "Text"
+},
+{
+"fieldname": "Abstract",
+"fieldtype": "Text"
+},
+{
+"fieldname": "Version",
+"fieldtype": "Text"
+}
+],
+"formatname": "book",
+"outputlines": [
+"\\def\\doctitle{{*Title*}}",
+"\\def\\docsecurity{{*Security*}}",
+"\\def\\docdate{{*Date*}}",
+"\\def\\docver{{*Version*}}",
+"\\def\\docauthor{{*Author*}}",
+"",
+"\\input{./template/front}",
+"",
+"%%---------------------------------------------------------------------",
+"\\begin{document}",
+"",
+"\\input{./template/zte_title}",
+"%%---------------------------------------------------------------------",
+"%%-----------\u79d8\u5bc6\u25b2----------------------------------------------------------",
+"% \\titlepage",
+"\\title{\\vspace{-2em}\u6280\u672f\u6587\u4ef6\uff1a\\doctitle\\vspace{-0.7em}}",
+"\\author{\\docauthor}",
+"\\date{\\vspace{-0.7em}\\docdate\\vspace{-0.7em}}",
+"",
+"%%---------------------------------------------------------------------",
+"%\\maketitle\\thispagestyle{fancy}",
+"%%---------------------------------------------------------------------",
+"\\maketitle",
+"\\tableofcontents",
+"",
+"\\begin{abstract}",
+"{*Abstract}",
+"\\end{abstract}",
+"",
+"{*@DescendantOutput*}",
+"",
+"% references",
+"\\bibliographystyle{plain}",
+"",
+"\\bibliography{{*Name*}} %\u53c2\u8003\u6587\u732e",
+"",
+"%%---------------------------------------------------------------------",
+"\\end{document}"
+],
+"titleline": "{*Name*}"
+},
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+}
+],
+"formatname": "enumerate",
+"outputlines": [
+"{*Name*}",
+"\\begin{enumerate}",
+"{*DSO*}",
+"\\end{enumerate}"
+],
+"titleline": "{*Name*}"
+},
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "HtmlText"
+}
+],
+"formathtml": true,
+"formatname": "item",
+"outputlines": [
+"\\item {*Name*}"
+],
+"titleline": "{*Name*}"
+},
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+},
+{
+"fieldname": "Head",
+"fieldtype": "Text"
+}
+],
+"formatname": "item_ex",
+"outputlines": [
+"\\item[{*Head*}] {*Name*}"
+],
+"titleline": "{*Name*}"
+},
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+}
+],
+"formatname": "itemize",
+"outputlines": [
+"{*Name*}",
+"\\begin{itemize}",
+"\\item[{*&Head*}] {*&Name*}",
+"\\end{itemize}"
+],
+"titleline": "{*Name*}"
+},
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+}
+],
+"formatname": "section",
+"outputlines": [
+"\\section{{*Name*}}"
+],
+"titleline": "{*Name*}"
+},
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+}
+],
+"formatname": "subsection",
+"outputlines": [
+"\\subsection{{*Name*}}"
+],
+"titleline": "{*Name*}"
+},
+{
+"fields": [
+{
+"fieldname": "Name",
+"fieldtype": "Text"
+}
+],
+"formatname": "subsubsection",
+"outputlines": [
+"\\subsubsection{{*Name*}}"
+],
+"titleline": "{*Name*}"
+}
+],
+"nodes": [
+{
+"children": [
+"a8bf74e6617411ecaa0b00163e0077cb"
+],
+"data": {
+"Name": "Main"
+},
+"format": "DEFAULT",
+"uid": "503105c8614311ecaa0b00163e0077cb"
+},
+{
+"children": [],
+"data": {
+"Name": "New"
+},
+"format": "item",
+"uid": "a8bf74e6617411ecaa0b00163e0077cb"
+}
+],
+"properties": {
+"tlversion": "3.1.4+",
+"topnodes": [
+"503105c8614311ecaa0b00163e0077cb"
+]
+}
+}
