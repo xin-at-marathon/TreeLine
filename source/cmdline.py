@@ -71,6 +71,8 @@ if __name__ == '__main__':
 
         for spot in rootSpots:
             lines.extend(spot.nodeRef.outputEx(False, False))
+            if spot.nodeRef.formatRef.spaceBetween:
+                lines.append('')
 
         try:
             with pathDest.open('w', encoding='utf-8') as fileDest:

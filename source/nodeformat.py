@@ -239,18 +239,26 @@ class NodeFormat:
         if mark_str_index >= 0:
             alltext=[]
             alltext.extend(result[:mark_line_index])
-            alltext.append(mark_line[:mark_str_index])
+            
+            if mark_line[:mark_str_index]:
+                alltext.append(mark_line[:mark_str_index])
 
             for child in node.childList:
                 alltext.extend(child.formatRef.formatOutputEx(child, plainText, keepBlanks, spotRef))
+                if child.formatRef.spaceBetween:
+                    alltext.append('')
 
-            alltext.append(mark_line[mark_str_index+len(mark):])
+            if mark_line[mark_str_index+len(mark):]:
+                alltext.append(mark_line[mark_str_index+len(mark):])
+                
             alltext.extend(result[mark_line_index+1:])
             return alltext
 
         else:
             for child in node.childList:
                 result.extend(child.formatRef.formatOutputEx(child, plainText, keepBlanks, spotRef))
+                if child.formatRef.spaceBetween:
+                    result.append('')
 
             return result
 
