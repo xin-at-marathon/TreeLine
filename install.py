@@ -165,6 +165,8 @@ def cleanSource():
     global progName
     if os.path.isfile(progName):
         os.remove(progName)
+    if os.path.isfile("treeline_cmd"):
+        os.remove("treeline_cmd")
 
 def removeDir(dir):
     """Remove dir and all files under it, ignore errors.
@@ -381,12 +383,14 @@ def main():
 
     if os.path.isdir('source'):
         createWrapper(pythonPrefixDir, progName)
+        createWrapper(pythonPrefixDir, "treeline_cmd")
         binBuildDir = os.path.join(buildRoot, prefixDir[1:], 'bin')
         print('  Copying executable file "{0}" to {1}'
               .format(progName, binBuildDir))
         if not os.path.isdir(binBuildDir):
             os.makedirs(binBuildDir)
         shutil.copy2(progName, binBuildDir)
+        shutil.copy2("treeline_cmd", binBuildDir)
         compileall.compile_dir(pythonBuildDir, ddir=prefixDir)
         cleanSource()
         print('Install complete.')

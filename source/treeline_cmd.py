@@ -17,7 +17,7 @@ def markNoTranslate(text, comment=''):
 
 if __name__ == '__main__':
     """Main event loop for TreeLine Command-line tool
-    python3 source/cmdline.py [type] [template.trln] [source.trln] [dest_dir]
+    python3 source/treeline_cmd.py [type] [template.trln] [source.trln] [dest_dir]
     type: latex/html
     """
     etype = sys.argv[1]
