@@ -31,6 +31,8 @@ templateDir = 'share/{0}/templates'.format(progName)
 iconToolDir = 'share/icons/{0}'.format(progName)
 testSpell = True
 
+cmdName = 'treeline_cmd'
+
 def usage(exitCode=2):
     """Display usage info and exit.
 
@@ -165,8 +167,8 @@ def cleanSource():
     global progName
     if os.path.isfile(progName):
         os.remove(progName)
-    if os.path.isfile("treeline_cmd"):
-        os.remove("treeline_cmd")
+    if os.path.isfile(cmdName):
+        os.remove(cmdName)
 
 def removeDir(dir):
     """Remove dir and all files under it, ignore errors.
@@ -383,14 +385,14 @@ def main():
 
     if os.path.isdir('source'):
         createWrapper(pythonPrefixDir, progName)
-        createWrapper(pythonPrefixDir, "treeline_cmd")
+        createWrapper(pythonPrefixDir, cmdName)
         binBuildDir = os.path.join(buildRoot, prefixDir[1:], 'bin')
         print('  Copying executable file "{0}" to {1}'
               .format(progName, binBuildDir))
         if not os.path.isdir(binBuildDir):
             os.makedirs(binBuildDir)
         shutil.copy2(progName, binBuildDir)
-        shutil.copy2("treeline_cmd", binBuildDir)
+        shutil.copy2(cmdName, binBuildDir)
         compileall.compile_dir(pythonBuildDir, ddir=prefixDir)
         cleanSource()
         print('Install complete.')
