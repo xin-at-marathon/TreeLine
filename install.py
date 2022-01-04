@@ -265,6 +265,9 @@ def main():
         print('  Copying python files to {0}'.format(pythonBuildDir))
         removeDir(pythonBuildDir)         # remove old?
         copyDir('source', pythonBuildDir)
+    if os.path.isdir('source/command'):
+            copyDir('source/command', os.path.join(pythonBuildDir, 'source', 'command'))
+            
     if os.path.isfile('source/plugininterface.py'):
         pluginBuildDir = os.path.join(pythonBuildDir, 'plugins')
         print('  Creating plugins directory if necessary')
