@@ -1,4 +1,15 @@
 #!/usr/bin/env python3
+"""TreeLine Command-line tool
+
+        Arguments:
+            command -- export or cpfmt
+            parameters -- command parameters
+
+        Examples:
+            treeline_cmd export source.trln dest_file.tex
+            treeline_cmd cpfmt format.trln source.trln dest.trln
+            treeline_cmd mergefmt struct.trln view.trln dest.trln
+"""
 import sys
 import builtins
 from command import *
@@ -14,20 +25,15 @@ def markNoTranslate(text, comment=''):
 
 
 if __name__ == '__main__':
-    """TreeLine Command-line tool
+    if len(sys.argv) <= 1:
+        help(sys.modules['__main__'])
+        sys.exit(-1)
 
-        Arguments:
-            command -- export or cpfmt
-            parameters -- command parameters
-
-        Examples:
-            treeline_cmd export source.trln dest_file.tex
-            treeline_cmd cpfmt format.trln source.trln dest.trln
-    """
     cmd = sys.argv[1]
-    available_cmds = ['export', 'cpfmt']
+
+    available_cmds = ['export', 'cpfmt', 'mergefmt']
     if not cmd in available_cmds:
-        raise ValueError(f"invalid command: {cmd}")
+        raise ValueError(f"invalid command: {cmd}. available commands: {available_cmds}")
 
     params = sys.argv[2:]
     
@@ -40,4 +46,6 @@ if __name__ == '__main__':
         
     if cmd == 'cpfmt':
         cmd_cpfmt(params)
-        
+
+    if cmd == 'mergefmt':
+        cmd_mergefmt(params)
