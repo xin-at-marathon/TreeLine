@@ -24,7 +24,7 @@ def __merge_formats(struct_formats, view_formats, fields):
 
         merged_formats.append(sf)
                 
-    return merged_fmt
+    return merged_fmts
     
 def cmd_mergefmt(params):
     struct_file = os.path.abspath(params[0])
@@ -45,9 +45,9 @@ def cmd_mergefmt(params):
         with view_path.open('r', encoding='utf-8') as view_handler:
             view_json = json.load(view_handler)
 
-            merged_fmt = __merge_formats(struct_json["formats"], view_json["formats"], fields)
+            merged_formats = __merge_formats(struct_json["formats"], view_json["formats"], fields)
 
-            view_json["formats"] = merged_fmt
+            view_json["formats"] = merged_formats
             
             with dst_path.open('w', encoding='utf-8') as dst_handler:
                 json.dump(view_json, dst_handler, ensure_ascii=False, indent=4)
