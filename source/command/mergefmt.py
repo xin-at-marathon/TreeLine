@@ -3,48 +3,51 @@ import pathlib
 import os.path
 import json
 
-def __replace_fields(a_formats, b_formats, fields):
-    for a in a_formats:
-        name = a['formatname']
+def __merge_formats(struct_formats, view_formats, fields):
+    merged_formats = []
+    for sf in struct_formats:
+        name = sf['formatname']
 
         found = None
-        for b in b_formats:
-            if name == b['formatname']:
-                found = b
+        for vf in view_formats:
+            if name == vf['formatname']:
+                found = vf
                 break
             
         if found:
             for f in fields:
                 if f in found:
-                    a[f] = found[f]
+                    sf[f] = found[f]
                 else:
-                    if f in a:
-                        del a[f]
+                    if f in sf:
+                        del sf[f]
+
+        merged_formats.append(sf)
                 
-    return a_formats
+    return merged_fmt
     
 def cmd_mergefmt(params):
     struct_file = os.path.abspath(params[0])
-    src_file = os.path.abspath(params[1])
+    view_file = os.path.abspath(params[1])
     dst_file = os.path.abspath(params[2])
 
     print(f"command:\tmerge format[mergefmt]")
-    print(f"\nstruct:\t\t{struct_file}\nsource:\t\t{src_file}\ndest:\t\t{dst_file}")
+    print(f"\nstruct:\t\t{struct_file}\nview:\t\t{view_file}\ndest:\t\t{dst_file}")
 
     struct_path = pathlib.Path(struct_file)
-    src_path = pathlib.Path(src_file)
+    view_path = pathlib.Path(view_file)
     dst_path = pathlib.Path(dst_file)
 
     fields = ["outputlines","spacebetween"]
     with struct_path.open('r', encoding='utf-8') as struct_handler:
         struct_json = json.load(struct_handler)
 
-        with src_path.open('r', encoding='utf-8') as src_handler:
-            src_json = json.load(src_handler)
+        with view_path.open('r', encoding='utf-8') as view_handler:
+            view_json = json.load(view_handler)
 
-            struct_json["formats"] = __replace_fields(struct_json["formats"], src_json["formats"], fields)
+            merged_fmt = __merge_formats(struct_json["formats"], view_json["formats"], fields)
 
-            src_json["formats"] = struct_json["formats"]
+            view_json["formats"] = merged_fmt
             
             with dst_path.open('w', encoding='utf-8') as dst_handler:
-                json.dump(src_json, dst_handler, ensure_ascii=False, indent=4)
+                json.dump(view_json, dst_handler, ensure_ascii=False, indent=4)
