@@ -24,7 +24,7 @@ def __merge_formats(struct_formats, view_formats, fields):
 
         merged_formats.append(sf)
                 
-    return merged_fmts
+    return merged_formats
     
 def cmd_mergefmt(params):
     struct_file = os.path.abspath(params[0])
