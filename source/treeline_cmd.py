@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     cmd = sys.argv[1]
 
-    available_cmds = ['export', 'cpfmt', 'mergefmt']
+    available_cmds = ['export', 'cpfmt', 'mergefmt', 'render']
     if not cmd in available_cmds:
         raise ValueError(f"invalid command: {cmd}. available commands: {available_cmds}")
 
@@ -49,3 +49,6 @@ if __name__ == '__main__':
 
     if cmd == 'mergefmt':
         cmd_mergefmt(params)
+
+    if cmd == 'render':
+        cmd_render(params)
