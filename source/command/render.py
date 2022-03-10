@@ -53,16 +53,16 @@ def cmd_render(params):
             dst_dir = output_dir.replace('uid', child_node.uId)
 
             Path(dst_dir).mkdir(parents=True, exist_ok=True)
-            shutil.rmtree(dst_dir, ignore_errors=True)
 
             # copy res directories
             src_res_dir = f"{res_dir}/{node_type}/{child_node.uId}"
-            shutil.copytree(src_res_dir, dst_dir)
+            if os.path.isdir(src_res_dir):
+                shutil.rmtree(dst_dir, ignore_errors=True)
+                shutil.copytree(src_res_dir, dst_dir)
                 
 #            Path(dst_dir).mkdir(parents=True, exist_ok=True)
             dst_path = Path(f"{dst_dir}/index.html")
             with dst_path.open('w', encoding='utf-8') as dst_handler:
                 dst_handler.writelines(lines)
-
-            
+           
     
