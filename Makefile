@@ -21,4 +21,4 @@ run:
 		-v $(PWD)/source:/usr/local/share/treeline \
 		-v /tmp/output:/output \
 		-v $(TREELINE_REPO):/input:ro \
-		bryt/treeline-cmd render topic /input/repo.trln /input/template/topic-document-html.trln /output/uid/document/html
+		bryt/treeline-cmd render topic /input/repo.trln /input/res /input/template/topic-document-html.json /output/uid/document/html

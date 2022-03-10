@@ -3,6 +3,7 @@ import os.path
 import json
 from pathlib import Path
 from .shared import merge_formats
+import shutil 
 
 def cmd_render(params):
     node_type = params[0] # topic/book/article/...
@@ -11,12 +12,14 @@ def cmd_render(params):
         raise ValueError(f"invalid node type: {node_type}. available types: {available_types}")
     
     repo_file = os.path.abspath(params[1])
-    template_file = os.path.abspath(params[2])
-    output_dir = params[3]
+    res_dir = os.path.abspath(params[2])
+    template_file = os.path.abspath(params[3])
+    output_dir = params[4]
     
     print(f"command: render tree nodes via template[render]")
     print(f"node type: {node_type}")
     print(f"repo: {repo_file}")
+    print(f"resource dir: {res_dir}")
     print(f"template: {template_file}")
     print(f"output dir: {output_dir}")
 
@@ -47,10 +50,17 @@ def cmd_render(params):
 
         for child_node in selected_root_spot.nodeRef.childList:
             lines = child_node.outputEx(False, False)
-            dir = output_dir.replace('uid', child_node.uId)
-            Path(dir).mkdir(parents=True, exist_ok=True)
-            dst_path = Path(f"{dir}/index.html")
+            dst_dir = output_dir.replace('uid', child_node.uId)
+
+            # copy res directories
+            src_res_dir = f"{res_dir}/{node_type}/{child_node.uId}"
+            shutil.rmtree(dst_dir, ignore_errors=True)
+            shutil.copytree(src_res_dir, dst_dir)
+                
+#            Path(dst_dir).mkdir(parents=True, exist_ok=True)
+            dst_path = Path(f"{dst_dir}/index.html")
             with dst_path.open('w', encoding='utf-8') as dst_handler:
                 dst_handler.writelines(lines)
+
             
     
