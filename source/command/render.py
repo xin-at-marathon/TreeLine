@@ -52,9 +52,11 @@ def cmd_render(params):
             lines = child_node.outputEx(False, False)
             dst_dir = output_dir.replace('uid', child_node.uId)
 
+            Path(dst_dir).mkdir(parents=True, exist_ok=True)
+            shutil.rmtree(dst_dir, ignore_errors=True)
+
             # copy res directories
             src_res_dir = f"{res_dir}/{node_type}/{child_node.uId}"
-            shutil.rmtree(dst_dir, ignore_errors=True)
             shutil.copytree(src_res_dir, dst_dir)
                 
 #            Path(dst_dir).mkdir(parents=True, exist_ok=True)
