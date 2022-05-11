@@ -61,8 +61,6 @@ def cmd_render(params):
 
             # get output lines
             lines = format_output_ext(child_node, False, False)
-            # replace node id placeholders
-            lines = map(lambda line: line.replace('#{id}', child_node.uId), lines)
 
             # write to file    
             dst_path = Path(dst_file)

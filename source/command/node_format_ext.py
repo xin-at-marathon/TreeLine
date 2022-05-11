@@ -13,7 +13,6 @@ def format_output_ext(node, plainText=False, keepBlanks=False, spotRef=None):
     else:
         return __format_output_descendant(node, plainText, keepBlanks, spotRef)
 
-
 def __format_output_included_node(include_node, plainText=False, keepBlanks=False, spotRef=None):
     included_node_uid = __get_included_node_uid(include_node)
     included_node = __find_node_by_uid(include_node, included_node_uid)
@@ -30,6 +29,16 @@ def __format_output_included_node(include_node, plainText=False, keepBlanks=Fals
 
 def __format_output_descendant(node, plainText=False, keepBlanks=False, spotRef=None):
         result = node.formatRef.formatOutput(node, plainText, keepBlanks, spotRef)
+
+        # replace node id placeholders
+        alltext = []
+        for line in result:
+            if line.find('#{id}') >= 0:
+                topic_uid = __find_topic_uid_in_ancestor(node)
+                alltext.append(line.replace('#{id}', topic_uid))
+            else:
+                alltext.append(line)
+        result = alltext
 
         mark = "{*@DescendantOutput*}"
 
@@ -77,8 +86,13 @@ def __get_included_node_uid(node):
         raise Exception('not a include node')
     return tag[10:].split('"')[0]
         
-def __find_node_by_uid(node, uid):
+def __find_node_by_uid(node, uId):
     for node in node.treeStructureRef().descendantGen():
-        if node.uId == uid:
+        if node.uId == uId:
             return node
     return None
+
+def __find_topic_uid_in_ancestor(node):
+    for ancestor in node.ancestors():
+        if ancestor.formatRef.name == 'TOPIC':
+            return ancestor.uId
