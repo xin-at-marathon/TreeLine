@@ -216,19 +216,6 @@ class TreeNode:
         return self.formatRef.formatOutput(self, plainText, keepBlanks,
                                            spotRef)
 
-    def outputEx(self, plainText=False, keepBlanks=False, spotRef=None):
-        """Return a list of formatted text output lines.
-
-        If spotRef not given, ancestor fields assume first spot.
-        Arguments:
-            plainText -- if True, remove HTML markup from fields and formats
-            keepBlanks -- if True, keep lines with empty fields
-            spotRef -- optional, used for ancestor field refs
-        """
-        return self.formatRef.formatOutputEx(self, plainText, keepBlanks,
-                                           spotRef)
-    
-
     def changeDataType(self, formatRef):
         """Change this node's data type to the given name.
 
